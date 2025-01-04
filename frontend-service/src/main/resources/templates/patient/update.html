@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Patient Dossier</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <form action="#" th:action="@{/patient/update/{id}(id=${id})}" th:object="${patient}" method="post"
+              class="form-horizontal" style="width:100%;">
+            <div class="form-group">
+                <label for="prenom" class="col-sm-2 control-label">Full Name</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{patient.prenom}" id="prenom" placeholder="Full Name" class="col-4">
+                    <p class="text-danger" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nom" class="col-sm-2 control-label">Surname</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{patient.nom}" id="nom" placeholder="Surname" class="col-4">
+                    <p class="text-danger" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="naissance" class="col-sm-2 control-label">Birth date</label>
+                <div class="col-sm-10">
+                    <input type="date" th:field="*{patient.naissance}" id="naissance" placeholder="Birth Date" class="col-4">
+                    <p class="text-danger" th:if="${#fields.hasErrors('naissance')}" th:errors="*{'naissance'}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="genre" class="col-sm-2 control-label">Gender</label>
+                <div class="col-sm-10">
+                    <label for="male">Male</label><input type="radio" id="male" name="fav_language" value="male">
+                    <label for="female">Female</label><input type="radio" id="female" name="fav_language" value="female">
+                    <p class="text-danger" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="adresse" class="col-sm-2 control-label">Address</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{patient.adresse}" id="adresse" placeholder="Address" class="col-4">
+                    <p class="text-danger" th:if="${#fields.hasErrors('adresse')}" th:errors="*{adresse}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telephone" class="col-sm-2 control-label">Telephone</label>
+                <div class="col-sm-10">
+                    <input type="tel" th:field="*{patient.telephone}" id="telephone" placeholder="Telephone" class="col-4">
+                    <p class="text-danger" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="record" class="col-sm-2 control-label">Medical record</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{patient.record}" id="record" placeholder="Medical Record" class="col-10">
+                    <p class="text-danger" th:if="${#fields.hasErrors('record')}" th:errors="*{record}"></p>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="hidden" th:field="*{patient.patient_id}">
+                    <input class="btn btn-primary btn-sm" href="/home" value="Cancel">
+                    <input class="btn btn-primary btn-sm" type="submit" value="Update Dossier">
+                    <a class="btn btn-danger btn-sm" type="submit">Delete patient</a>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

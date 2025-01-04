@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -22,6 +23,19 @@ public class controller {
         List<Patient> patients = patientServiceClient.getAllPatients(); //injection of the feign client to avoid recall to the jpa repository and separating concerns
         model.addAttribute("patients", patients);
         return "patients";
+    }
+
+    @PostMapping(path="/patients/update/{id}")
+    public void updatePatient(@PathVariable("id") Integer id, Model model) {
+        patientServiceClient.updatePatient(id);
+    }
+
+    @GetMapping(path="/patients/get/{id}")
+    public String getPatient(@PathVariable("id") Integer id, Model model) {
+        Patient patient = patientServiceClient.getPatientById(id); //injection of the feign client to avoid recall to the jpa repository and separating concerns
+        patient.setPatient_id(id); //it is needed to position the id in the list it's bind after in the template
+        model.addAttribute("patient", patient);
+        return "patient/update";
     }
 
     //Home page of the website
