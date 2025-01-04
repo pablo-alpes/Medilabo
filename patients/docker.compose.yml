@@ -1,0 +1,27 @@
+name: medilabo
+
+services:
+  db:
+    image: mysql:9.1.0
+    restart: always
+    environment:
+      MYSQL_USER : 'user'
+      MYSQL_DATABASE: 'medilabo'
+      # So you don't have to use root, but you can if you like
+      MYSQL_ROOT_PASSWORD : 'password'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'password'
+      # Password for root access
+      ports:
+        # <Port exposed> : <MySQL Port running inside container>
+        '3306:3306'
+      expose:
+        # Opens port 3306 on the container
+        '3306'
+        # Where our data will be persisted in the container
+      volumes: 'medilabo:/var/lib/mysql'
+# Names our volume
+volumes:
+  medilabo:
+
+  #https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee

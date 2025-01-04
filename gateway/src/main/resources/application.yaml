@@ -1,0 +1,36 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    eureka:
+      client:
+        fetch-registry: true
+        register-with-eureka: true
+        serviceUrl:
+          default-zone: http://localhost:8761/eureka/
+      server:
+        enable-self-preservation: false
+    gateway:
+      routes:
+        - id: home-route
+          uri: lb://frontend-service
+          predicates:
+            - Path=/home/**, /patients/**
+        - id: patients-service-route
+          uri: lb://patients-service
+          predicates:
+            - Method=POST
+
+    discovery:
+      locator:
+        enabled: true
+  main:
+    web-application-type: reactive
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

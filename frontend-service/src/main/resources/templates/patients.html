@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Medilabo Solutions</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i&amp;display=swap">
+    <link rel="stylesheet" href="/templates/assets/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="/templates/assets/css/Navbar-Right-Links-icons.css">
+    <link rel="stylesheet" href="/templates/assets/css/vanilla-zoom.min.css">
+
+    <style>
+        .navbar-nav .nav-item {
+            margin-right: 15px; /* Adjust spacing here */
+        }
+        .navbar-nav .nav-item:last-child {
+            margin-right: 0; /* Remove the margin from the last item */
+        }
+    </style>
+</head>
+
+<body>
+    <main></main>
+    <div class="container">
+        <nav class="navbar navbar-expand-md bg-body py-3">
+            <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-heart-half">
+                            <path d="M8 2.748v11.047c3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"></path>
+                        </svg></span><span>Medilabo Solutions</span></a>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link active" href="/patients">Patients</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/dossier">Patient dossier</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/reporting">Reporting</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="table-responsive ps-0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>patient_id</th>
+                        <th>nom</th>
+                        <th>prenom</th>
+                        <th>naissance</th>
+                        <th>genre</th>
+                        <th>adresse</th>
+                        <th>telephone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="patient : ${patients}"> <!-- instance : objet https://www.baeldung.com/thymeleaf-list -->
+                        <td th:text="${patient.patient_id}">patientid</td>
+                        <td th:text="${patient.nom}">nom</td>
+                        <td th:text="${patient.prenom}">prenom</td>
+                        <td th:text="${patient.naissance}">naissance</td>
+                        <td th:text="${patient.genre}">genre</td>
+                        <td th:text="${patient.adresse}">adress</td>
+                        <td th:text="${patient.telephone}">telephone</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+            </ul>
+        </nav>
+    </div>
+    <ul></ul>
+    <script src="/templates/assets/js/baguetteBox.min.js"></script>
+    <script src="/templates/assets/js/vanilla-zoom.js"></script>
+    <script src="/templates/assets/js/theme.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
