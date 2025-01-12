@@ -14,8 +14,8 @@ public interface PatientServiceClient {
     @RequestMapping("/patients/get/{id}")
     Patient getPatientById(@PathVariable Integer id);
 
-    @PostMapping(path="/patient/update/{id}", consumes = {"*/*"})
-    void updatePatient(@PathVariable("id") Integer id, @RequestBody Patient patient);
+    @PostMapping(path="/patients/update/{id}")
+    void updatePatient(@PathVariable Integer id, @RequestBody Patient patient);
 
     @PostMapping("/patients/delete/{id}")
     void deletePatient(@PathVariable Integer id);

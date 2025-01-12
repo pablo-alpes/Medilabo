@@ -23,10 +23,11 @@ public class controller {
         return "patients";
     }
 
-    @PostMapping(path="/patients/update/{id}", consumes = {"*/*"})
-    public String updatePatient(@PathVariable("id") Integer id, @RequestBody Patient patient, Model model) {
-            patientServiceClient.updatePatient(id, patient);
-            return "redirect:/patients";
+    @PostMapping(path="/patients/update/{id}")
+    public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
+        patient.setPatient_id(id);  // Ensure the ID is set
+        patientServiceClient.updatePatient(id, patient);
+        return "redirect:/patients";
     }
 
     @GetMapping(path="/patients/get/{id}")
