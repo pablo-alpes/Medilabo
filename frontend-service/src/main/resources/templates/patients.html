@@ -60,8 +60,14 @@
                         <td th:text="${patient.prenom}">prenom</td>
                         <td th:text="${patient.naissance}">naissance</td>
                         <td th:text="${patient.genre}">genre</td>
-                        <td th:text="${patient.adresse}">adress</td>
+                        <td th:text="${patient.adresse}">address</td>
                         <td th:text="${patient.telephone}">telephone</td>
+                        <td>
+                            <a th:href="@{/patients/get/{id}(id=${patient.patient_id})}">edit</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/patients/delete/{id}(id=${patient.patient_id})}">delete</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

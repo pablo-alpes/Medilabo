@@ -4,6 +4,7 @@ import com.medilabo.model.Patient;
 import com.medilabo.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +26,9 @@ public class controller {
         return patient;
     }
 
-    @PostMapping(path="/patients/update/")
-    public void updatePatient(@RequestBody Patient patient) {
+    @PostMapping(path="/patients/update/{id}", consumes = {"*/*"})
+    public void updatePatient(@PathVariable("id") Integer id, @RequestBody Patient patient) {
+        patient.setPatient_id(id);
         patientRepository.save(patient);
     }
     //https://stackoverflow.com/questions/43719828/update-or-saveorupdate-in-crudrepository
