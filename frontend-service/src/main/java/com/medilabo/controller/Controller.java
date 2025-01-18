@@ -3,14 +3,13 @@ package com.medilabo.controller;
 import com.medilabo.model.Patient;
 import com.medilabo.servicesInterface.PatientServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller //Returns a view, so spring recognises this
-public class controller {
+@org.springframework.stereotype.Controller //Returns a view, so spring recognises this
+public class Controller {
     @Autowired
     private PatientServiceClient patientServiceClient;
 
