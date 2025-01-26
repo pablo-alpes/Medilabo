@@ -3,12 +3,12 @@ server:
 
 spring:
   application:
-    name: patients-service
+    name: patientservice
 
   datasource:
     url: jdbc:mysql://localhost:3306/medilabo
     username: root
-    password: password
+    password: qqddqsqddqqdqdsqds
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
