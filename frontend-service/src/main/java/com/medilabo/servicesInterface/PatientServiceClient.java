@@ -20,11 +20,4 @@ public interface PatientServiceClient {
 
     @PostMapping("/patients/delete/{id}")
     void deletePatient(@PathVariable Integer id);
-
-    @RequestMapping("/patients/records/get/{id}")
-    MedicalRecord getPatientRecord(@PathVariable Integer id);
-
-    //@PostMapping(path="/patients/records/update/{id}")
-    //void updatePatientRecord(@PathVariable Integer id, @RequestBody Patient patient);
-    //TODO* To define how the request of the field will be passed into here
 }

@@ -1,6 +1,8 @@
 package com.medilabo.controller;
 
+import com.medilabo.model.MedicalRecord;
 import com.medilabo.model.Patient;
+import com.medilabo.servicesInterface.MedicalServiceClient;
 import com.medilabo.servicesInterface.PatientServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -12,6 +14,9 @@ import java.util.List;
 public class Controller {
     @Autowired
     private PatientServiceClient patientServiceClient;
+
+    @Autowired
+    private MedicalServiceClient medicalServiceClient;
 
     //https://spring.io/guides/gs/accessing-data-mysql
     @GetMapping(path="/patients")
@@ -32,8 +37,12 @@ public class Controller {
     @GetMapping(path="/patients/get/{id}")
     public String getPatient(@PathVariable("id") Integer id, Model model) {
         Patient patient = patientServiceClient.getPatientById(id); //injection of the feign client to avoid recall to the jpa repository and separating concerns
+        MedicalRecord medicalRecord = medicalServiceClient.getPatientRecord(String.valueOf(id));
+
         patient.setPatient_id(id); //it is needed to position the id in the list it's bind after in the template
+
         model.addAttribute("patient", patient);
+        model.addAttribute("notes", medicalRecord);
         return "patient/update";
     }
 

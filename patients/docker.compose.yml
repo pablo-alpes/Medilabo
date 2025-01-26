@@ -1,5 +1,3 @@
-version: '3.8'  # Add this line to specify the Compose file version
-
 services:
   # mysql
   db:

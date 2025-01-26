@@ -11,6 +11,15 @@ spring:
         fetchRegistry: true
         register-with-eureka: true
         serviceUrl:
-          default-zone: http://localhost:8761/eureka/
+          defaultZone: http://localhost:8761/eureka/
       server:
         enable-self-preservation: true
+
+  data:
+    mongodb:
+      authentication-database: admin
+      host: localhost
+      port: 27017
+      database: medicalrecords
+      username: root
+      password: admin

@@ -1,6 +1,8 @@
 package com.medilabo.controller;
 
+import com.medilabo.model.MedicalRecord;
 import com.medilabo.model.Patient;
+import com.medilabo.repository.MedicalRecordRepository;
 import com.medilabo.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -12,6 +14,9 @@ import java.util.List;
 public class Controller {
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private MedicalRecordRepository medicalRecordRepository;
 
     //https://spring.io/guides/gs/accessing-data-mysql
     @RequestMapping(path="/patients")
