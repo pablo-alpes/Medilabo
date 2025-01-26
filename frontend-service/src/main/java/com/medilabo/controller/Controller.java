@@ -28,9 +28,12 @@ public class Controller {
     }
 
     @PostMapping(path="/patients/update/{id}")
-    public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
+    public String updatePatient(@PathVariable("id") Integer id, Patient patient, @ModelAttribute MedicalRecord medicalRecord, Model model) {
+        //this method acts as an umbrella to perform the update in both databases and registries separatedly at level of microservices
         patient.setPatient_id(id);  // Ensure the ID is set
+        medicalRecord.setPatientId(id);
         patientServiceClient.updatePatient(id, patient);
+        medicalServiceClient.updatePatientRecord(String.valueOf(id), medicalRecord);
         return "redirect:/patients";
     }
 
