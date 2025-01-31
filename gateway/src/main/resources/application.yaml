@@ -17,11 +17,11 @@ spring:
     gateway:
       routes:
         - id: home-route
-          uri: lb://frontend-service
+          uri: lb://frontendservice
           predicates:
             - Path=/home/**, /patients/**
         - id: patients-service-route
-          uri: lb://patients-service
+          uri: lb://patientservice
           predicates:
             - Method=POST
 

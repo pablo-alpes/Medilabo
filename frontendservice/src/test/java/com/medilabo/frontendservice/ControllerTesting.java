@@ -16,33 +16,37 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest //define the scope since the test is not in the same package
 @AutoConfigureMockMvc
-@EnableFeignClients
+//@EnableFeignClients
 public class ControllerTesting {
     @Autowired
     private MockMvc mockMvc; //simulates the http requests
     @Autowired
     ObjectMapper objectMapper; //to convert objects to json and vice versa
 
-    public WireMockServer wireMockServer;
+    //public WireMockServer wireMockServer;
 
-    @Autowired
+    @MockitoBean
     public PatientServiceClient patientServiceClient;
-    @Autowired
+    @MockitoBean
     public MedicalServiceClient medicalServiceClient;
 
     //private WireMockServer wireMockServer; //https://www.baeldung.com/introduction-to-wiremock
 
     //Setting up the WireMock for the feign clients
-    @BeforeEach
+/*    @BeforeEach
     void setup() {
         int port = 8080;
         wireMockServer = new WireMockServer(WireMockConfiguration.options().port(port));
@@ -67,6 +71,38 @@ public class ControllerTesting {
         if (wireMockServer != null) {
             wireMockServer.stop();
         }
+    }
+*/
+
+    @Test
+    public void getPatientTest() throws Exception {
+        // ARRANGE
+        Integer patientId = 2;
+        PatientDTO patient = new PatientDTO(patientId, "John", "Doe", "01/01/2000", "M", "1234 Main St", "1234567890");
+        MedicalRecordsDTO medicalRecord = new MedicalRecordsDTO();
+        medicalRecord.setPatientId(patientId);
+        medicalRecord.setNotes("Le patient déclare qu'il ressent beaucoup de stress au travail Il se plaint également que son audition est anormale dernièrement");
+        medicalRecord.setPatient("TestBorderline");
+
+        // Mock the responses from the Feign clients
+        when(patientServiceClient.getPatientById(patientId)).thenReturn(patient);
+        when(medicalServiceClient.getPatientRecord(String.valueOf(patientId))).thenReturn(medicalRecord);
+
+        // ACT & ASSERT
+        MvcResult result = mockMvc.perform(get("/patients/get/{id}", patientId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("patient"))
+                .andExpect(model().attributeExists("medicalRecord"))
+                .andExpect(view().name("patient/update"))
+                .andReturn();
+
+        // Verify the model attributes
+        PatientDTO returnedPatient = (PatientDTO) result.getModelAndView().getModel().get("patient");
+        MedicalRecordsDTO returnedMedicalRecord = (MedicalRecordsDTO) result.getModelAndView().getModel().get("medicalRecord");
+
+        assertEquals(patient, returnedPatient);
+        assertEquals(medicalRecord, returnedMedicalRecord);
     }
 
     @Test

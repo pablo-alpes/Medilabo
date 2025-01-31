@@ -45,10 +45,12 @@ public class FrontEndController {
         //this method acts as an umbrella to perform the update in both databases and registries separatedly at level of microservices
         patient.setPatient_id(id);  // Ensure the ID is set
         medicalRecord.setPatientId(id);
-
+        medicalRecord.setPatient(patient.getPrenom());
+        System.out.println(medicalRecord);
         // Convert to JSON as per the Request Body needed
         try {
             String patientJson = objectMapper.writeValueAsString(patient);
+
             String medicalRecordJson = objectMapper.writeValueAsString(medicalRecord);
 
             patientServiceClient.updatePatient(id, patientJson);
@@ -67,7 +69,7 @@ public class FrontEndController {
         patient.setPatient_id(id); //it is needed to position the id in the list it's bind after in the template
 
         model.addAttribute("patient", patient);
-        model.addAttribute("MedicalRecord", medicalRecord);
+        model.addAttribute("medicalRecord", medicalRecord);
         return "patient/update";
     }
 
