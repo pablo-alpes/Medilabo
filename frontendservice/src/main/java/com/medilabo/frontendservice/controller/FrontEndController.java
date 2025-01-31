@@ -6,6 +6,7 @@ import com.medilabo.frontendservice.interfaces.MedicalServiceClient;
 import com.medilabo.frontendservice.interfaces.PatientServiceClient;
 import com.medilabo.shareddto.MedicalRecordsDTO;
 import com.medilabo.shareddto.PatientDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,19 +17,17 @@ import java.util.List;
 @Controller //Returns a view, so spring recognises this
 @EnableFeignClients
 public class FrontEndController {
+
     private final PatientServiceClient patientServiceClient;
     private final MedicalServiceClient medicalServiceClient;
+    private final ObjectMapper objectMapper;
 
-    // Preferred: No @Autowired annotation
-    public FrontEndController(
-            PatientServiceClient patientServiceClient,
-            MedicalServiceClient medicalServiceClient
-    ) {
+    @Autowired
+    public FrontEndController(PatientServiceClient patientServiceClient, MedicalServiceClient medicalServiceClient) {
         this.patientServiceClient = patientServiceClient;
         this.medicalServiceClient = medicalServiceClient;
+        this.objectMapper = new ObjectMapper();
     }
-
-    ObjectMapper objectMapper;
 
     //https://spring.io/guides/gs/accessing-data-mysql
     @GetMapping(path="/patients")
@@ -39,25 +38,24 @@ public class FrontEndController {
         return "patients";
     }
 
-    @PostMapping(path="/patients/update/{id}")
-    public String updatePatient(@PathVariable("id") Integer id, PatientDTO patient, @ModelAttribute MedicalRecordsDTO medicalRecord, Model model) {
+    @PostMapping(path="/patients/update/{id}", consumes = "application/x-www-form-urlencoded")
+    public String updatePatient(@PathVariable("id") Integer id, @ModelAttribute PatientDTO patient, @ModelAttribute MedicalRecordsDTO medicalRecord, Model model) {
         //model attribute medical records binds with the thymeleaf template
-        //this method acts as an umbrella to perform the update in both databases and registries separatedly at level of microservices
+        //this method acts as an umbrella to perform the update in both databases and registries separately at level of microservices
         patient.setPatient_id(id);  // Ensure the ID is set
         medicalRecord.setPatientId(id);
         medicalRecord.setPatient(patient.getPrenom());
-        System.out.println(medicalRecord);
+
         // Convert to JSON as per the Request Body needed
         try {
-            String patientJson = objectMapper.writeValueAsString(patient);
-
+            //String patientJson = objectMapper.writeValueAsString(patient);
             String medicalRecordJson = objectMapper.writeValueAsString(medicalRecord);
-
-            patientServiceClient.updatePatient(id, patientJson);
-            medicalServiceClient.updatePatientRecord(String.valueOf(id), medicalRecordJson);
+ 
+            patientServiceClient.updatePatient(id, String.valueOf(patient));  //Todo: it is not working, it is not updating the patient
+            medicalServiceClient.updatePatientRecord(String.valueOf(id), "application/json", medicalRecordJson);
             return "redirect:/patients";
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e); // TODO do logging
+            throw new RuntimeException(e.getMessage()); // TODO do logging
         }
     }
 

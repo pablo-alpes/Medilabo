@@ -1,6 +1,5 @@
 package com.medilabo.shareddto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MedicalRecordsDTO {
-   private String _id;
+   private String id;
    private Integer patientId;
    private String patient;
    private String notes;

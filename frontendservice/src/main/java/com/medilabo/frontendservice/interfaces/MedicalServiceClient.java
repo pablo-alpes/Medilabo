@@ -1,17 +1,17 @@
 package com.medilabo.frontendservice.interfaces;
 
 import com.medilabo.shareddto.MedicalRecordsDTO;
+import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "medicalrecordservice")
 public interface MedicalServiceClient {
     @RequestMapping("/patients/record/get/{id}")
     MedicalRecordsDTO getPatientRecord(@PathVariable String id);
 
-    @PostMapping(path="/patients/record/update/{id}")
-    void updatePatientRecord(@PathVariable String id, @RequestBody String medicalRecord);
+    @PutMapping(value = "/patients/record/update/{id}", consumes = "application/json")
+    void updatePatientRecord(@RequestParam("id") String id,
+                             @RequestHeader("Content-Type") String contentType,
+                             String medicalRecordJson);
 }
