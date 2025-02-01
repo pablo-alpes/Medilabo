@@ -21,26 +21,32 @@ public class Patient {
 
     @Size(max = 50)
     @Column(name = "nom", length = 50)
+    @NotNull
     private String nom;
 
     @Size(max = 50)
     @Column(name = "prenom", length = 50)
+    @NotNull
     private String prenom;
 
     @Size(max = 10)
     @Column(name = "naissance", length = 10)
+    @NotNull
     private String naissance;
 
     @Size(max = 1)
     @Column(name = "genre", length = 1)
+    @NotNull
     private String genre;
 
     @Size(max = 50)
     @Column(name = "adresse", length = 50)
+    @NotNull
     private String adresse;
 
     @Size(max = 12)
     @Column(name = "telephone", length = 12)
+    @NotNull
     private String telephone;
 
 }

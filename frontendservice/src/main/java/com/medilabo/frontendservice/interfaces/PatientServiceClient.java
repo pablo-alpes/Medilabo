@@ -15,7 +15,9 @@ public interface PatientServiceClient {
     PatientDTO getPatientById(@PathVariable Integer id);
 
     @PostMapping(path="/patients/update/{id}")
-    void updatePatient(@PathVariable Integer id, @RequestBody String patient);
+    void updatePatient(
+            @PathVariable("id") Integer id,
+            @RequestBody PatientDTO patient);
 
     @PostMapping("/patients/delete/{id}")
     void deletePatient(@PathVariable Integer id);

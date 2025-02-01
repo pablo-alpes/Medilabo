@@ -27,11 +27,11 @@ public class PatientsController {
     }
 
     @PostMapping(path="/patients/update/{id}")
-    public void updatePatient(@PathVariable("id") Integer id, @ModelAttribute("patient") Patient patient) {
+    public void updatePatient(@PathVariable("id") Integer id, @RequestBody Patient patient) {
+        //RequestBody is used to bind the input to the object and not ModelAttribute because it is not a form
         patient.setPatient_id(id);
         patientRepository.save(patient);
     }
-
     //https://stackoverflow.com/questions/43719828/update-or-saveorupdate-in-crudrepository
 
     @PostMapping(path="/patients/delete/{id}")
