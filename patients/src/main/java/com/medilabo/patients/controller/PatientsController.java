@@ -29,6 +29,7 @@ public class PatientsController {
     @PostMapping(path="/patients/update/{id}")
     public void updatePatient(@PathVariable("id") Integer id, @RequestBody Patient patient) {
         //RequestBody is used to bind the input to the object and not ModelAttribute because it is not a form
+        //https://spring.io/guides/gs/accessing-data-mysql
         patient.setPatient_id(id);
         patientRepository.save(patient);
     }
