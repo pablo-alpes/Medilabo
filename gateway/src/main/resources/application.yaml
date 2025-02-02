@@ -19,11 +19,22 @@ spring:
         - id: home-route
           uri: lb://frontendservice
           predicates:
-            - Path=/home/**, /patients/**
+            - Path=/home/**
+        - id: patients-frontend-route
+          uri: lb://frontendservice
+          predicates:
+            - Path=/patients
+            - Method=GET
         - id: patients-service-route
           uri: lb://patientservice
           predicates:
-            - Method=POST
+            - Path=/patients/**
+            - Method=GET,POST,PUT,DELETE
+        - id: risk-assessment-route
+          uri: lb://riskservice
+          predicates:
+            - Path=/patients/risk/**
+            - Method=GET
 
     discovery:
       locator:

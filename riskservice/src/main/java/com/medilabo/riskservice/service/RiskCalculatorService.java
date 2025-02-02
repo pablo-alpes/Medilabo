@@ -13,7 +13,7 @@ public class RiskCalculatorService {
             NONE, BORDERLINE, IN_DANGER, EARLY_ONSET
         }
 
-        public static Integer triggersCount(String record) {
+        public Integer triggersCount(String record) {
             record = record.toLowerCase();
             int riskFactors = 0;
             RiskTriggers riskTriggers = new RiskTriggers();
@@ -26,14 +26,14 @@ public class RiskCalculatorService {
             return riskFactors;
         }
 
-        public static Integer calculateAge(String age) {
+        public Integer calculateAge(String age) {
             LocalDate today = LocalDate.now();
             LocalDate birthDate = LocalDate.parse(age);
             Period yearsOld = birthDate.until(today);
             return yearsOld.getYears();
         }
 
-        public static RiskLevel assessRisk(Integer age, String gender, Integer riskFactors) {
+        public RiskLevel assessRisk(Integer age, String gender, Integer riskFactors) {
             if (riskFactors <= 1) {
                 return RiskLevel.NONE;
             }
@@ -46,7 +46,7 @@ public class RiskCalculatorService {
             };
         }
 
-        private static RiskLevel assessMaleRisk(Integer age, Integer riskFactors) {
+        private RiskLevel assessMaleRisk(Integer age, Integer riskFactors) {
             if (age > 30) {
                 return switch (riskFactors) {
                     case 2, 3, 4, 5 -> RiskLevel.BORDERLINE;
@@ -61,7 +61,7 @@ public class RiskCalculatorService {
             }
         }
 
-        private static RiskLevel assessFemaleRisk(int age, Integer riskFactors) {
+        private RiskLevel assessFemaleRisk(int age, Integer riskFactors) {
             if (age > 30) {
                 return switch (riskFactors) {
                     case 2, 3, 4, 5 -> RiskLevel.BORDERLINE;

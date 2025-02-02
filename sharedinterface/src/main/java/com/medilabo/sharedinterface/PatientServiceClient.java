@@ -3,15 +3,16 @@ package com.medilabo.sharedinterface;
 import com.medilabo.shareddto.PatientDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@FeignClient(name = "patientservice")
+
+
+@FeignClient(name = "patientservice", url = "http://localhost:8080")
 public interface PatientServiceClient {
-    @RequestMapping("/patients")
+    @RequestMapping(path="/patients")
     List<PatientDTO> getAllPatients();
 
-    @RequestMapping("/patients/get/{id}")
+    @RequestMapping(path="/patients/get/{id}")
     PatientDTO getPatientById(@PathVariable Integer id);
 
     @PostMapping(path="/patients/update/{id}")
@@ -19,6 +20,6 @@ public interface PatientServiceClient {
             @PathVariable("id") Integer id,
             @RequestBody PatientDTO patient);
 
-    @PostMapping("/patients/delete/{id}")
+    @PostMapping(path="/patients/delete/{id}")
     void deletePatient(@PathVariable Integer id);
 }
