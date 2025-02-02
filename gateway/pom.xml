@@ -44,6 +44,16 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
             <version>3.4.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.medilabo</groupId>
+            <artifactId>shared-dto</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
 
 
     </dependencies>

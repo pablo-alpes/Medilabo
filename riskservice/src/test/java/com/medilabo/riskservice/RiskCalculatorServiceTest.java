@@ -1,5 +1,6 @@
 package com.medilabo.riskservice;
 
+import com.medilabo.riskservice.constants.RiskTriggers;
 import com.medilabo.riskservice.service.RiskCalculatorService;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,5 +41,20 @@ public class RiskCalculatorServiceTest {
     public void testCalculateAge() {
         assertEquals(27, RiskCalculatorService.calculateAge("1998-01-01"));
         assertEquals(32, RiskCalculatorService.calculateAge("1993-01-01"));
+    }
+
+    @Test
+    public void testTriggers() {
+        //ASSIGN
+        RiskTriggers riskTriggers = new RiskTriggers();
+        RiskCalculatorService riskCalculatorService = new RiskCalculatorService();
+
+        //ACT
+        String record = "This is a test record with fumeur and anormal microalbumine";
+        int result = RiskCalculatorService.triggersCount(record);
+
+        //ASSERT
+        assertEquals(3, result);
+
     }
 }

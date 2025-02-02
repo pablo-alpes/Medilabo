@@ -8,10 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
-
 @RestController
 public class MedicalRecordsController {
     //Controller retrieves the Records "document" from the mongodb database

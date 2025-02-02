@@ -1,20 +1,14 @@
 package com.medilabo.frontendservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.medilabo.frontendservice.interfaces.MedicalServiceClient;
-import com.medilabo.frontendservice.interfaces.PatientServiceClient;
 import com.medilabo.shareddto.MedicalRecordsDTO;
 import com.medilabo.shareddto.PatientDTO;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.medilabo.sharedinterface.MedicalServiceClient;
+import com.medilabo.sharedinterface.PatientServiceClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;

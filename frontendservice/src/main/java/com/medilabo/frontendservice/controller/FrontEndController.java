@@ -2,10 +2,10 @@ package com.medilabo.frontendservice.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medilabo.frontendservice.interfaces.MedicalServiceClient;
-import com.medilabo.frontendservice.interfaces.PatientServiceClient;
 import com.medilabo.shareddto.MedicalRecordsDTO;
 import com.medilabo.shareddto.PatientDTO;
+import com.medilabo.sharedinterface.MedicalServiceClient;
+import com.medilabo.sharedinterface.PatientServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,6 @@
 package com.medilabo.riskservice.service;
 
+import com.medilabo.riskservice.constants.RiskTriggers;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -10,6 +11,19 @@ public class RiskCalculatorService {
     //A simple rule engine that calculates the risk level of a patient based on their risk factors and age
         public enum RiskLevel {
             NONE, BORDERLINE, IN_DANGER, EARLY_ONSET
+        }
+
+        public static Integer triggersCount(String record) {
+            record = record.toLowerCase();
+            int riskFactors = 0;
+            RiskTriggers riskTriggers = new RiskTriggers();
+
+            for (String trigger : riskTriggers.getTriggers()) { //since iterates over the list of triggers, once found it wont find it twice
+                if (record.contains(trigger)) {
+                    riskFactors++;
+                }
+            }
+            return riskFactors;
         }
 
         public static Integer calculateAge(String age) {

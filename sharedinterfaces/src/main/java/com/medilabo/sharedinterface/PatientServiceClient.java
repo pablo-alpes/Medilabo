@@ -1,4 +1,4 @@
-package com.medilabo.frontendservice.interfaces;
+package com.medilabo.sharedinterface;
 
 import com.medilabo.shareddto.PatientDTO;
 import org.springframework.cloud.openfeign.FeignClient;
