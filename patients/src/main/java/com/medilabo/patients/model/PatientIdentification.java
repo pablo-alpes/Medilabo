@@ -1,7 +1,8 @@
 package com.medilabo.patients.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +13,8 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="patient_identification")
-@SecondaryTables(
-        {@SecondaryTable(name="patient_contactdetails"),
-        @SecondaryTable(name="patient_location")}) // https://www.baeldung.com/jpa-mapping-single-entity-to-multiple-tables
-public class Patient {
+@Table(name = "patient_identification")
+public class PatientIdentification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id", nullable = false)
@@ -41,15 +39,5 @@ public class Patient {
     @Column(name = "genre", length = 1)
     @NotNull
     private String genre;
-
-    @Size(max = 50)
-    @Column(name = "adresse", table = "patient_location", length = 50)
-    @NotNull
-    private String adresse;
-
-    @Size(max = 12)
-    @Column(name = "telephone", table = "patient_contactdetails", length = 12)
-    @NotNull
-    private String telephone;
 
 }
