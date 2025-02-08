@@ -4,7 +4,7 @@ import com.medilabo.shareddto.MedicalRecordsDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "medicalrecordservice", url = "http://localhost:8084")
+@FeignClient(name = "medicalrecordservice")
 public interface MedicalServiceClient {
     @RequestMapping(path="/patients/record/get/{id}")
     MedicalRecordsDTO getPatientRecord(@PathVariable String id);

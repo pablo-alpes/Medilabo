@@ -1,8 +1,10 @@
 package com.medilabo.riskservice.controller;
 
+import com.medilabo.riskservice.model.RiskProfile;
 import com.medilabo.riskservice.service.RiskCalculatorService;
 import com.medilabo.shareddto.MedicalRecordsDTO;
 import com.medilabo.shareddto.PatientDTO;
+import com.medilabo.shareddto.RiskProfileDTO;
 import com.medilabo.sharedinterface.MedicalServiceClient;
 import com.medilabo.sharedinterface.PatientServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RiskAssessmentController {
-    @Autowired
     private PatientServiceClient patientServiceClient;
-    @Autowired
     private MedicalServiceClient medicalServiceClient;
-    @Autowired
     private RiskCalculatorService riskCalculatorService;
+    private final RiskProfile riskProfile = new RiskProfile();
+
+    @Autowired
+    public RiskAssessmentController(PatientServiceClient patientServiceClient, MedicalServiceClient medicalServiceClient, RiskCalculatorService riskCalculatorService) {
+        this.patientServiceClient = patientServiceClient;
+        this.medicalServiceClient = medicalServiceClient;
+        this.riskCalculatorService = riskCalculatorService;
+    }
 
     @GetMapping(path="/patients/risk/{id}", produces = "application/json")
-    public String getRiskProfile(@PathVariable("id") Integer id) {
+    public RiskProfile getRiskProfile(@PathVariable("id") Integer id) {
         //Retrieving patient and medical records
+
         PatientDTO patient = patientServiceClient.getPatientById(id); //injection of the feign client to avoid recall to the jpa repository and separating concerns
         System.out.println(patient);
         MedicalRecordsDTO medicalRecord = medicalServiceClient.getPatientRecord(String.valueOf(id));
@@ -36,7 +44,10 @@ public class RiskAssessmentController {
         //Identifying number of diabetes triggers in the record
         Integer riskFactors = riskCalculatorService.triggersCount(record);
 
-        return String.valueOf(riskCalculatorService.assessRisk(Integer.valueOf(age), genre, riskFactors));
+        riskProfile.setId(String.valueOf(id));
+        riskProfile.setRisk(String.valueOf(riskCalculatorService.assessRisk(Integer.valueOf(age), genre, riskFactors)));
+
+        return riskProfile;
     }
 }
 

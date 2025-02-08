@@ -11,8 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class MedicalRecordsController {
     //Controller retrieves the Records "document" from the mongodb database
+    private final MedicalRecordRepository medicalRecordRepository;
+
+    //https://medium.com/@anil.java.story/why-spring-constructor-injection-is-the-recommended-approach-75edca1f9b36
     @Autowired
-    private MedicalRecordRepository medicalRecordRepository;
+    public MedicalRecordsController(MedicalRecordRepository medicalRecordRepository) {
+        this.medicalRecordRepository = medicalRecordRepository;
+    }
+
 
     @GetMapping(path="/patients/record/get/{id}")
     public MedicalRecord getMedicalRecord(@PathVariable("id") Integer id, Model model) {

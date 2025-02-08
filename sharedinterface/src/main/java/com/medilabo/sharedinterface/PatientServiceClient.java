@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-
-@FeignClient(name = "patientservice", url = "http://localhost:8080")
+@FeignClient(name = "patientservice")
 public interface PatientServiceClient {
     @RequestMapping(path="/patients")
     List<PatientDTO> getAllPatients();

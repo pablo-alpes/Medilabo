@@ -1,25 +1,32 @@
 // This class is used to test the controller of the frontend-service
-package com.medilabo.patients.controller;
+package com.medilabo.patients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medilabo.medicalrecordservice.model.MedicalRecord;
 import com.medilabo.patients.model.Patient;
+import com.medilabo.patients.repository.PatientRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.webservices.client.AutoConfigureWebServiceClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-@SpringBootTest(classes = {PatientsController.class}) //to define the scope since the test is not in the same package
-@AutoConfigureMockMvc
+@WebMvcTest
 public class ControllerTestingPatients {
     @Autowired
     private MockMvc mockMvc; //simulates the http requests
+
+    @MockBean
+    private PatientRepository patientRepository;
+
     @Autowired
     private ObjectMapper objectMapper; //to convert objects to json and vice versa
 

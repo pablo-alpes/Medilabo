@@ -10,8 +10,11 @@ import java.util.List;
 
 @RestController
 public class PatientsController {
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+
+    public PatientsController(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
     //https://spring.io/guides/gs/accessing-data-mysql
     @RequestMapping(path="/patients")

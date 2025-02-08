@@ -14,7 +14,8 @@ public class RiskCalculatorService {
         }
 
         public Integer triggersCount(String record) {
-            record = record.toLowerCase();
+            record = (record.toLowerCase()).replaceAll("\\<.*?>",""); //https://stackoverflow.com/questions/4432560/remove-html-tags-from-string-using-java
+            //plan b : https://jsoup.org
             int riskFactors = 0;
             RiskTriggers riskTriggers = new RiskTriggers();
 

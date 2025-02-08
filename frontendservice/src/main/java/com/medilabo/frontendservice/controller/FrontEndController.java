@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medilabo.shareddto.MedicalRecordsDTO;
 import com.medilabo.shareddto.PatientDTO;
+import com.medilabo.shareddto.RiskProfileDTO;
 import com.medilabo.sharedinterface.MedicalServiceClient;
 import com.medilabo.sharedinterface.PatientServiceClient;
+import com.medilabo.sharedinterface.RiskServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class FrontEndController {
     private PatientServiceClient patientServiceClient;
     @Autowired
     private MedicalServiceClient medicalServiceClient;
+    @Autowired
+    private RiskServiceClient riskServiceClient;
+
     @Autowired
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -46,7 +51,7 @@ public class FrontEndController {
         try {
             //String patientJson = objectMapper.writeValueAsString(patient);
             String medicalRecordJson = objectMapper.writeValueAsString(medicalRecord);
- 
+
             patientServiceClient.updatePatient(id, patient); //injection of the feign client with plain object
             medicalServiceClient.updatePatientRecord(String.valueOf(id), "application/json", medicalRecordJson);
             return "redirect:/patients";
@@ -59,9 +64,11 @@ public class FrontEndController {
     public String getPatient(@PathVariable("id") Integer id, Model model) {
         PatientDTO patient = patientServiceClient.getPatientById(id); //injection of the feign client to avoid recall to the jpa repository and separating concerns
         MedicalRecordsDTO medicalRecord = medicalServiceClient.getPatientRecord(String.valueOf(id));
+        RiskProfileDTO riskProfile = riskServiceClient.getRiskProfile(id);
 
         patient.setPatient_id(id); //it is needed to position the id in the list it's bind after in the template
 
+        model.addAttribute("risk", riskProfile);
         model.addAttribute("patient", patient);
         model.addAttribute("medicalRecord", medicalRecord);
         return "patient/update";
