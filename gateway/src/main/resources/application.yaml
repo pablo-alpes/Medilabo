@@ -11,7 +11,7 @@ spring:
         fetch-registry: true
         register-with-eureka: true
         serviceUrl:
-          default-zone: http://localhost:8761/eureka/
+          defaultZone: http://localhost:8761/eureka/
       server:
         enable-self-preservation: false
     gateway:
@@ -23,13 +23,12 @@ spring:
         - id: patients-frontend-route
           uri: lb://frontendservice
           predicates:
-            - Path=/patients
+            - Path=/patients, /patients/get/**
             - Method=GET
         - id: patients-service-route
           uri: lb://patientservice
           predicates:
             - Path=/patients/**
-            - Method=GET,POST,PUT,DELETE
         - id: risk-assessment-route
           uri: lb://riskservice
           predicates:
@@ -45,3 +44,4 @@ spring:
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
+    org.springframework.web.reactive: DEBUG

@@ -2,7 +2,6 @@ package com.medilabo.patients.controller;
 
 import com.medilabo.patients.model.Patient;
 import com.medilabo.patients.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
