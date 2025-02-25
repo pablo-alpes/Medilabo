@@ -4,7 +4,6 @@ import com.medilabo.riskservice.model.RiskProfile;
 import com.medilabo.riskservice.service.RiskCalculatorService;
 import com.medilabo.shareddto.MedicalRecordsDTO;
 import com.medilabo.shareddto.PatientDTO;
-import com.medilabo.shareddto.RiskProfileDTO;
 import com.medilabo.sharedinterface.MedicalServiceClient;
 import com.medilabo.sharedinterface.PatientServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,17 @@
+server:
+  port: 5006
+
+spring:
+  main:
+    web-application-type: servlet
+  application:
+    name: frontendservice
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://eurekaserver:8761/eureka/
+  instance:
+    preferIpAddress: true

@@ -1,0 +1,24 @@
+server:
+  port: 5003
+
+spring:
+  application:
+    name: medicalrecordservice
+
+  data:
+    mongodb:
+      authentication-database: admin
+      host: mongo
+      port: 27017
+      database: medicalrecords
+      username: root
+      password: admin
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://eurekaserver:8761/eureka/
+  instance:
+    preferIpAddress: true

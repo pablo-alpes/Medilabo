@@ -1,0 +1,18 @@
+server:
+  port: 5005
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: riskservice
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://eurekaserver:8761/eureka/
+  instance:
+    preferIpAddress: true
+
