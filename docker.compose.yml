@@ -24,6 +24,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
       - '27017:27017'
+    networks:
+      - backend
 
   mongo-express:
     image: mongo-express
@@ -39,6 +41,10 @@ services:
       - ME_CONFIG_BASICAUTH_PASSWORD=admin
     depends_on:
       - mongo
+    networks:
+      - backend
+    volumes:
+      - medrecords:/var/lib/mongodb
 
   #Services initiation
   eurekaserver:
@@ -62,6 +68,15 @@ services:
       - backend
     ports:
       - '5002:5002'
+
+  #https://docs:docker:com/engine/storage/volumes/:
+  volumekeeper: #ensures the volume stays alive
+    image: alpine:latest
+    command: tail -f /dev/null
+    networks:
+      - backend
+    volumes:
+      - shared-libs:/libs
 
   shareddto:
     build:
@@ -153,15 +168,6 @@ services:
       - patientservice
       - riskservice
 
-  #https://docs:docker:com/engine/storage/volumes/:
-  volumekeeper: #ensures the volume stays alive
-    image: alpine:latest
-    command: tail -f /dev/null
-    networks:
-      - backend
-    volumes:
-      - shared-libs:/libs
-
 networks:
   backend:
     driver: bridge
@@ -170,6 +176,7 @@ networks:
 
 #shared volumes
 volumes:
+  medrecords:
   medilabo:
   #https://docs:docker:com/reference/compose-file/volumes/:
   shared-libs:
