@@ -81,7 +81,7 @@ public class FrontEndController {
     }
 
     //Home page of the website
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home(Model model) {
         return "index";
     }

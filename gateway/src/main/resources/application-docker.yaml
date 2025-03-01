@@ -11,16 +11,17 @@ spring:
         - id: home-route
           uri: lb://frontendservice
           predicates:
-            - Path=/home/**
+            - Path=/
+            - Method=GET
         - id: patients-frontend-route
           uri: lb://frontendservice
           predicates:
             - Path=/patients, /patients/get/**
-            - Method=GET
+            - Method=GET,POST,PUT,DELETE
         - id: patients-service-route
           uri: lb://patientservice
           predicates:
-            - Path=/patients/**
+            - Path=/backend/patients/**
             - Method=GET,POST,PUT,DELETE
         - id: risk-assessment-route
           uri: lb://riskservice

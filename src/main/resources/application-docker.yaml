@@ -4,6 +4,7 @@ server:
 eureka:
   instance:
     hostname: eurekaserver
+    preferIpAddress: false
   client:
     registerWithEureka: false
     fetchRegistry: false
