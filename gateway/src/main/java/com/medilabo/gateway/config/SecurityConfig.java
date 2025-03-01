@@ -25,8 +25,10 @@ public class SecurityConfig {
                         .pathMatchers("/login").permitAll() // Allow Eureka server access without authentication
                         .pathMatchers("/").authenticated() // Allow home route without authentication
                         .pathMatchers("/backend/patients/**").authenticated() // Require authentication for patient frontend routes
+                        .pathMatchers("/patients/record/update/**").authenticated() // Require authentication for patient service routes
                         .pathMatchers("/patients/risk/**").authenticated() // Require authentication for risk assessment routes
-                        .pathMatchers("/patients/**").authenticated() // Require authentication for patient service routes
+                        .pathMatchers("/patients/update/**").authenticated() // Require authentication for risk assessment routes
+                        .pathMatchers("/patients/delete/**").authenticated() // Require authentication for risk assessment routes
                         .anyExchange().authenticated()
                 )
                 .formLogin(Customizer.withDefaults()) // Use default login form

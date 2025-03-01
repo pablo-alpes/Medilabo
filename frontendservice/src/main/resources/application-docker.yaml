@@ -1,5 +1,6 @@
 server:
   port: 5006
+  forward-headers-strategy: native
 
 spring:
   main:

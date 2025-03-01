@@ -38,7 +38,7 @@ public class PatientsController {
     }
     //https://stackoverflow.com/questions/43719828/update-or-saveorupdate-in-crudrepository
 
-    @PostMapping(path="/patients/delete/{id}")
+    @GetMapping(path="/patients/delete/{id}")
     public void deletePatient(@PathVariable("id") Integer id) {
         patientRepository.deleteById(id);
     }

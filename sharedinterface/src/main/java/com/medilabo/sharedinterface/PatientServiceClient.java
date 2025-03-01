@@ -8,17 +8,17 @@ import java.util.List;
 
 @FeignClient(name = "patientservice")
 public interface PatientServiceClient {
-    @RequestMapping(path="//backend/patients")
+    @RequestMapping(path="/backend/patients")
     List<PatientDTO> getAllPatients();
 
-    @RequestMapping(path="//backend/patients/get/{id}")
+    @RequestMapping(path="/backend/patients/get/{id}")
     PatientDTO getPatientById(@PathVariable Integer id);
 
-    @PostMapping(path="//backend/patients/update/{id}")
+    @PostMapping(path="/backend/patients/update/{id}")
     void updatePatient(
             @PathVariable("id") Integer id,
             @RequestBody PatientDTO patient);
 
-    @PostMapping(path="//backend/patients/delete/{id}")
+    @GetMapping(path="/backend/patients/delete/{id}")
     void deletePatient(@PathVariable Integer id);
 }
