@@ -19,8 +19,6 @@ services:
     restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
       - '27017:27017'  # Keep this for development
     networks:
@@ -35,11 +33,6 @@ services:
       - '9000:8081'
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
-      - ME_CONFIG_MONGODB_URL=mongodb://root:admin@mongo:27017/
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=admin
     depends_on:
       - mongo
     networks:
