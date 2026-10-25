@@ -4,8 +4,6 @@ services:
     image: mysql:8.4.0
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - MYSQL_ROOT_PASSWORD=qqddqsqddqqdqdsqds
-      - MYSQL_DATABASE=medilabo
     ports:
       - '3306:3306'  # Keep this for development
     volumes:
